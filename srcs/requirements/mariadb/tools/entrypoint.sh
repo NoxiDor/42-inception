@@ -1,8 +1,10 @@
 #!/bin/sh
 
-echo $MARIADB_DATA_DIR
+export DB_NAME="$(cat /run/secrets/db_name)"
+export DB_USER="$(cat /run/secrets/db_user)"
+export DB_PASSWORD="$(cat /run/secrets/db_password)"
 
-systemctl start mariadb
+echo "Entrypoint script... Checking data dir from env : $MARIADB_DATA_DIR"
 
 if [ ! -f "$MARIADB_DATA_DIR/ibdata1" ]; then
 	echo "MariaDB not initialized. Setting up..."
