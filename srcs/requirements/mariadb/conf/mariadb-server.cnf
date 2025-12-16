@@ -1,19 +1,17 @@
-[mysqld]
-pid-file=/run/mariadb/mariadb.pid
-skip-networking
-
 [mysqld_safe]
 log_error=/var/log/mariadb/error_safe.log
 
 [mariadb]
-user=root
+user=mysql
 port=3306
 bind-address=0.0.0.0
 skip-networking=false
 
 datadir=/var/lib/mariadb
-socket=/var/run/mariadb/maria.sock
-
+socket=/run/mysqld/mysqld.sock
+pid-file=/run/mysqld/mysqld.pid
+tmpdir=/tmp
+basedir=/usr
 log-output=FILE
 
 general_log

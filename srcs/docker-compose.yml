@@ -3,9 +3,11 @@ services:
     build: ./requirements/mariadb/
     restart: unless-stopped
     volumes:
-      - ~/data/database:/var/lib/mariadb
+      - db:/var/lib/mariadb
     networks:
       - inception
+    env_file:
+      - .env
     secrets:
       - db_user
       - db_password
@@ -25,13 +27,29 @@ services:
     depends_on:
       - db
     volumes:
-      - ~/data/wordpress:/var/www/html
+      - wordpress:/var/www/html
     networks:
       - inception
+    env_file:
+      - .env
     secrets:
       - db_user
       - db_password
       - db_name
+
+volumes:
+  db:
+    driver: local
+    driver_opts:
+      type: none
+      o: 'bind'
+      device: /home/jazema/data/database
+  wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      o: 'bind'
+      device: /home/jazema/data/wordpress
 
 networks:
   inception:
