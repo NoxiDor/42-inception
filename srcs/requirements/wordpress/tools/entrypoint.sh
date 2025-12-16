@@ -8,10 +8,11 @@ export DB_PASSWORD="$(cat /run/secrets/db_password)"
 
 if [ ! -f "$WP_DIR/wp-config.php" ]; then
 	echo "Wordpress config does not exit.. Creating"
-	#wp config create --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASSWORD" --dbhost=mariadb --path="$WP_DIR"
+#	wp config create --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASSWORD" --dbhost=mariadb --path="$WP_DIR"
+	rm -f /var/www/html/xmlrpc.php
 fi
+
 
 echo "Wordpress already installed: Starting..."
 
-#rm -f /var/www/html/xmlrpc.php
-tail -f
+exec php-fpm84 -F

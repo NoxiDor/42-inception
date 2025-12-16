@@ -19,13 +19,14 @@ services:
       - wordpress
     ports:
       - "443:443"
+      - "80:80" # A ENLEVER ABSOLUYMENT
     networks:
       - inception
   wordpress:
     build: ./requirements/wordpress/
     restart: unless-stopped
     ports:
-      - "8000:9000"
+      - "9000:9000" # A ELENDNLEVER
     depends_on:
       - db
     volumes:
