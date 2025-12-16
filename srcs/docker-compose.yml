@@ -1,0 +1,32 @@
+services:
+  db:
+    build: ./requirements/mariadb/
+    environment:
+      - MARIADB_DATA_DIR=/var/lib/mariadb
+    volumes:
+      - ~/data/database:/var/lib/mariadb
+    restart: unless-stopped
+  nginx:
+    build: ./requirements/nginx/
+    restart: unless-stopped
+  wordpress:
+    build: ./requirements/wordpress/
+    restart: unless-stopped
+    depends_on:
+      - db
+      - nginx
+    volumes:
+      - ~/data/wordpress:/var/www/html
+
+networks:
+  default:
+
+secrets:
+  db_user:
+    file: ../secrets/db_user.txt
+  db_password:
+    file: ../secrets/db_password.txt
+  db_root_password:
+    file: ../secrets/db_root_password
+  db_database:
+    file: ../secrets/db_database.txt
