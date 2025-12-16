@@ -13,7 +13,8 @@ services:
   nginx:
     build: ./requirements/nginx/
     restart: unless-stopped
-    depends_on: wordpress
+    depends_on:
+      - wordpress
     ports:
       - "443:443"
     networks:
