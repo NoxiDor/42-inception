@@ -11,15 +11,9 @@ echo "Entrypoint script... Checking data dir from env : $MARIADB_DATA_DIR"
 
 if [ ! -f "$MARIADB_DATA_DIR/ibdata1" ]; then
 	echo "MariaDB not initialized. Setting up..."
-	mariadb-install-db --user mysql --datadir=$MARIADB_DATA_DIR
-	wait $!
+	mariadb-install-db --user mysql --port 3306 --datadir=$MARIADB_DATA_DIR
 	echo "MariaDB successfully initialized !"
-else
-	echo "MariaDB already initialized. Starting..."
-	#cd '/usr' ; /usr/bin/mariadbd-safe --datadir=$MARIADB_DATA_DIR &
-	exec mariadbd --user mysql --init-file /tmp/init.sql --datadir=$MARIADB_DATA_DIR --port 3306 --bind-address 0.0.0.0
-	#wait $!
-	exit 1
 fi
-#mariadb-install-db
-#mariadb
+
+echo "MariaDB already initialized. Starting..."
+exec mariadbd --user mysql --init-file /tmp/init.sql --datadir=$MARIADB_DATA_DIR

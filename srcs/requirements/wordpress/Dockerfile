@@ -1,6 +1,7 @@
 FROM alpine:3.22.2
 
 RUN apk update && apk add --no-cache \
+	netcat-openbsd \
 	php84 \
 	php84-fpm \
 	php84-mysqli \
