@@ -1,6 +1,6 @@
 FROM alpine:3.22.2
 
-RUN apk update && apk add --no-cache nginx
+RUN apk update && apk add --no-cache nginx openssl
 
 RUN mkdir -p /run/nginx
 

@@ -12,6 +12,10 @@ export WP_USER="$(cat /run/secrets/wp_user)"
 export WP_PASSWORD="$(cat /run/secrets/wp_password)"
 export WP_EMAIL="$(cat /run/secrets/wp_email)"
 
+export WP_BASIC_USER="$(cat /run/secrets/wp_basic_user)"
+export WP_BASIC_PASSWORD="$(cat /run/secrets/wp_basic_password)"
+export WP_BASIC_EMAIL="$(cat /run/secrets/wp_basic_email)"
+
 echo "Waiting for MariaDB at $DB_HOST:$DB_PORT..."
 
 until nc -z "$DB_HOST" "$DB_PORT"; do
@@ -51,18 +55,24 @@ EOF
     		wp core install \
         	--allow-root \
         	--path="$WP_DIR" \
-        	--url="0.0.0.0" \
+        	--url="$DOMAIN_NAME:7000/" \
         	--title="Inception" \
         	--admin_user="$WP_USER" \
         	--admin_password="$WP_PASSWORD" \
         	--admin_email="$WP_EMAIL"
 
-    		#wp user create \
-        	#--allow-root \
-        	#"$WP_USER" "$WP_USER_EMAIL" \
-        	#--user_pass="$WP_USER_PASSWORD" \
-        	#--role=author
+    		wp user create \
+        		--allow-root \
+			--path="$WP_DIR" \
+        		"$WP_BASIC_USER" "$WP_BASIC_EMAIL" \
+        		--user_pass="$WP_BASIC_PASSWORD" \
+        		--role=author
+
 		echo "OK!"
+		echo "Installing theme.."
+		wp theme install blogarea --path="$WP_DIR"
+		wp theme activate blogarea --path="$WP_DIR"
+		wp theme update blogarea --path="$WP_DIR"
 	fi
 	rm -f /var/www/html/xmlrpc.php
 	rm -rf /var/www/html/wp-config-sample.php
