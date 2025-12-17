@@ -20,13 +20,13 @@ services:
     ports:
       - "443:443"
       - "80:80" # A ENLEVER ABSOLUYMENT
+    volumes:
+      - wordpress:/var/www/html
     networks:
       - inception
   wordpress:
     build: ./requirements/wordpress/
     restart: unless-stopped
-    ports:
-      - "9000:9000" # A ELENDNLEVER
     depends_on:
       - db
     volumes:
@@ -39,6 +39,9 @@ services:
       - db_user
       - db_password
       - db_name
+      - wp_user
+      - wp_password
+      - wp_email
 
 volumes:
   db:
@@ -67,3 +70,9 @@ secrets:
     file: ../secrets/db_database.txt
   db_root_password:
     file: ../secrets/db_root_password
+  wp_user:
+    file: ../secrets/wp_user.txt
+  wp_password:
+    file: ../secrets/wp_password.txt
+  wp_email:
+    file: ../secrets/wp_email.txt
