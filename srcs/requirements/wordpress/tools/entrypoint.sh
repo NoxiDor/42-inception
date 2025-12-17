@@ -51,7 +51,7 @@ EOF
     		wp core install \
         	--allow-root \
         	--path="$WP_DIR" \
-        	--url="$DOMAIN_NAME" \
+        	--url="0.0.0.0" \
         	--title="Inception" \
         	--admin_user="$WP_USER" \
         	--admin_password="$WP_PASSWORD" \
