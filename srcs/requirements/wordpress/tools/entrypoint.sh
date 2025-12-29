@@ -55,7 +55,7 @@ EOF
     		wp core install \
         	--allow-root \
         	--path="$WP_DIR" \
-        	--url="$DOMAIN_NAME/" \
+        	--url="https://$DOMAIN_NAME/" \
         	--title="Inception" \
         	--admin_user="$WP_USER" \
         	--admin_password="$WP_PASSWORD" \
@@ -70,9 +70,9 @@ EOF
 
 		echo "OK!"
 		echo "Installing theme.."
-		wp theme install blogarea --path="$WP_DIR"
-		wp theme activate blogarea --path="$WP_DIR"
-		wp theme update blogarea --path="$WP_DIR"
+		wp theme install spiel --path="$WP_DIR"
+		wp theme activate spiel --path="$WP_DIR"
+		wp theme update spiel --path="$WP_DIR"
 	fi
 	rm -f /var/www/html/xmlrpc.php
 	rm -rf /var/www/html/wp-config-sample.php
