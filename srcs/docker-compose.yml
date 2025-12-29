@@ -1,9 +1,9 @@
 services:
-  db:
+  mariadb:
     build: ./requirements/mariadb/
     restart: unless-stopped
     volumes:
-      - db:/var/lib/mariadb
+      - mariadb:/var/lib/mariadb
     networks:
       - inception
     env_file:
@@ -28,7 +28,7 @@ services:
     build: ./requirements/wordpress/
     restart: unless-stopped
     depends_on:
-      - db
+      - mariadb
     volumes:
       - wordpress:/var/www/html
     networks:
@@ -47,7 +47,7 @@ services:
       - wp_basic_password
 
 volumes:
-  db:
+  mariadb:
     driver: local
     driver_opts:
       type: none

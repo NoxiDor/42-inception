@@ -2,7 +2,7 @@
 
 export WP_DIR="/var/www/html"
 
-export DB_HOST="db"
+export DB_HOST="mariadb"
 export DB_PORT="3306"
 export DB_NAME="$(cat /run/secrets/db_name)"
 export DB_USER="$(cat /run/secrets/db_user)"
